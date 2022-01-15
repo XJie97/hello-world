@@ -28,51 +28,96 @@ for num in nums:
     return sum
     break;
   print('The first TwoSum combination found is ' , 
-#how to tell computer to iterate over all other indexes similar to index 0? Figure out & insert below
-  
-  
-
-
-
-nums = [1,2,3,4,5]
-target = 9
-testNumA = 
-for num in nums: 
-  target_test = 
-
+#how to tell computer to iterate over all other indexes similar to index 0? Figure out & insert below 
 else: 
   return str('No answer')
 
 
-problems: how to retrieve the numA & numB from array?
-- previously have experienced with a similar question, kept getting error float is not an iterable object
--- this should not be an issue here as this list is defined in integers;
---- how to solve this problem if the array is comprised of floats?
----- explicit conversion of all float integers into string, do conversions then return results in float? seems inefficient AF...
 
-NOTES:
-in python pseudocode, := and = are the same thing (assignment operator). = or == can be a equality operator. 
-
-in normal brute force solution, this would result in time complexity of O(n^2); whatever that means, long time to solve if the 
-required combination is the last to be tried using our algorithm.
+#nums = [1,2,3,4,5]
+#target = 9
+#testNumA = 
+#for num in nums: 
+#  target_test = 
 
 
-#rahulsharma19940602; https://www.code-recipe.com/post/two-sum
+
+#problems: how to retrieve the numA & numB from array?
+#- previously have experienced with a similar question, kept getting error float is not an iterable object
+#-- this should not be an issue here as this list is defined in integers;
+#--- how to solve this problem if the array is comprised of floats?
+#---- explicit conversion of all float integers into string, do conversions then return results in float? seems inefficient AF...
+
+#NOTES:
+#in python pseudocode, := and = are the same thing (assignment operator). = or == can be a equality operator. 
+
+#in normal brute force solution, this would result in time complexity of O(n^2); whatever that means, long time to solve if the 
+#required combination is the last to be tried using our algorithm.
+
+#to review below 2 solutions, understand how the flow works & try to understand their thought process.
+#rahulsharma19940602; https://www.code-recipe.com/post/two-sum | https://leetcode.com/problems/two-sum/discuss/1687733/100-Fastest-Solution-Explained
 class Solution:
    def twoSum(self, nums: List[int], target: int) -> List[int]:
-       seen = {}
-       for i, value in enumerate(nums):
-           remaining = target - nums[i]
-           
-           if remaining in seen:
+   #XJ: fnc args: self || rqd for instanced class func, nums: List[int] || assign int list provided as arg2,  target || assign target integer as arg3   
+   #new concept: return function annotation using operator ->; still not sure what this does, to explore further
+   
+       seen = {}                                #XJ: define a empty dict 'seen'. This dict used to check if a value in nums already been checked
+       for i, value in enumerate(nums):         #XJ: fnc args: key & value in newly defined dict enumerate{}. 
+           #XJ: new inbuilt fnc: enumerate; The enumerate() method adds a counter to an iterable and returns it (the enumerate object).  
+           #XJ:  refer https://www.programiz.com/python-programming/methods/built-in/enumerate
+           #XJ: > this creates a new dict by iterating over all items in list [nums] and assigning them a key in order:
+           #XJ:  Input nums = [2, 7, 11, 15], target = 9 | Output: [(0, 2), (1, 7), (2, 11), (3, 15)]
+           #XJ: This loop will run for all pairs in the dict 'enumerate' so it will iterate over (0, 2), (1, 7), (2, 11), (3, 15)
+       
+           remaining = target - nums[i]         #XJ: define var 'remaining' as (target) - (value indexed from list 'nums' using (key i in dict 'enumerate')). 
+                                                #LOOP1: remaining = 9-2 L2: remaining = 9-7, L3: remaining = 9-11, L4: remaining = 9-15
+           if remaining in seen:                #XJ: if 'remaining' is an element of dict {seen}, return a list [key i in dict 'enumerate', var 'remaining']
                return [i, seen[remaining]]
             
-           seen[value] = i
+           seen[value] = i                      #XJ: set value of key [value] to i in dict 'seen'. This means 
 
-#tkuo-tkuo:
+/* XJ: REPHRASED VERSION OF EXPLANATION FOR OWN UNDERSTANDING:
+SOLUTION 2: using hashmap
+hashmap to solve this problem in linear time
+use a hashmap to store the indices of visited elements
+hashmap defined as a dict
+hashmap key is the element in the input array/list
+hashmap value is the element index in the input array/list
+
+Iterate over each element in the input array.
+In each iteration, check if required number is present in the given array. (required number = target - current number)
+If present, return the required number & current number indexes as result.
+Else, add the current number as key and current number index as value to dict. Repeat under result is found.
+
+input array: [2, 7, 11, 15]
+target: 9
+
+
+Let currIdX be the current element
+Let idxMap be the index map
+
+FOR TARGET = 9,  LOOP 1:
+At the beginning, curridX = 0, idxMap is empty.
+Check if (target - current number) = (target - currIdx)
+(9 - 2) = (9 - 2)
+required number is not present as idxMap is = {}
+add 7 as idxMap key, 0 as idxMap index
+idxMap = {(2:0)}
+curridX += 1
+
+FOR TARGET = 9, LOOP 2:
+curridX = 1
+current number = 7
+required number = 9 - 7 = 2
+required number is in idxMap as key 2, linked to index 0  
+return index of current number & index of required number as result
+*/
+
+#tkuo-tkuo: https://leetcode.com/discuss/general-discussion/655704/
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        # Use defaultdict to handy key-error automatically 
+    def twoSum(self, nums: List[int], target: int) -> List[int]: 
+    #XJ: fnc arguments: self || rqd for instanced class func, nums: List[int] || assign int list provided as arg2,  target || assign target integer as arg3        
+    # Use defaultdict to handy key-error automatically XJ: wtf is this
         d = collections.defaultdict(list) # dict 
         for i, num in enumerate(nums):
             d[num].append(i)
