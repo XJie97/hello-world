@@ -1,0 +1,57 @@
+FIRST FILE: I HAVE NO IDEA WHAT I AM DOING
+15 Jan 2022
+
+LEETCODE TWOSUM
+
+Given an integer array nums and an integer target, return indices of the 2 numbers in nums where the sum of those 2 numbers = target
+Decompositon of problem in human langauge (brute force/first method I think of):
+1. Need to retrieve the values of all the integers in array.
+2. Need to compare for all possible combinations in the list = sum(numA + numB)
+3. If sum(numA + numB) = target, return target and break;
+4. (not in scope: to prevent infinite loops); if all possible combinations have been tested, no answer found. 
+
+ 
+[1, 2, 3, 4, 5] ; test cases = 1+2,1+3,1+4,1+5,2+1,2+2,2+3,2+4,2+5,etc
+this can be further broken down as:
+retrieve index 0 from array, take sum of nums[0] with every other indexed integer, 
+for num in nums:
+  index = 1
+  sum = num[0] + num[i in range(len(nums))]
+  
+
+
+
+nums = [1,2,3,4,5]
+target = 9
+testNumA = 
+for num in nums: 
+  target_test = 
+
+else: 
+  return str('No answer')
+
+
+problems: how to retrieve the numA & numB from array?
+- previously have experienced with a similar question, kept getting error float is not an iterable object
+-- this should not be an issue here as this list is defined in integers;
+--- how to solve this problem if the array is comprised of floats?
+---- explicit conversion of all float integers into string, do conversions then return results in float? seems inefficient AF...
+
+NOTES:
+in python pseudocode, := and = are the same thing (assignment operator). = or == can be a equality operator. 
+
+in normal brute force solution, this would result in time complexity of O(n^2); whatever that means, long time to solve if the 
+required combination is the last to be tried using our algorithm.
+
+
+
+class Solution:
+   def twoSum(self, nums: List[int], target: int) -> List[int]:
+       seen = {}
+       for i, value in enumerate(nums):
+           remaining = target - nums[i]
+           
+           if remaining in seen:
+               return [i, seen[remaining]]
+            
+           seen[value] = i
